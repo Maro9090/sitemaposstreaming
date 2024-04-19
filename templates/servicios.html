@@ -1,0 +1,132 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Catálogo</title>
+  <style>
+    /* Estilos para la barra de tareas */
+    .top-bar {
+      background-color: #007bff; /* Color de fondo */
+      color: #fff; /* Color del texto */
+      padding: 10px; /* Espaciado interno */
+      text-align: center; /* Alineación del texto */
+      display: flex;
+      justify-content: space-between; /* Espacio entre elementos */
+      align-items: center; /* Centra verticalmente los elementos */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra suave */
+    }
+
+    .top-bar nav ul {
+      list-style: none; /* Quita los puntos de la lista */
+      padding: 0; /* Quita el espacio interno */
+      margin: 0; /* Quita el espacio externo */
+      display: flex;
+    }
+
+    .top-bar nav ul li {
+      margin-right: 20px; /* Margen derecho entre elementos */
+    }
+
+    .top-bar nav ul li a {
+      color: #fff; /* Color del texto del enlace */
+      text-decoration: none; /* Quita el subrayado del enlace */
+      padding: 8px 12px; /* Espaciado interno */
+      border-radius: 5px; /* Bordes redondeados */
+      transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+    }
+
+    .top-bar nav ul li a:hover {
+      background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+    }
+
+     /* Estilos para la imagen de usuario */
+     .user-icon {
+      width: 24px; /* Ancho de la imagen */
+      height: auto; /* Altura automática para mantener la proporción */
+      margin-left: 330px; /* Margen derecho para separar la imagen del nombre */
+    }
+
+    /* Estilos para el catálogo */
+    .catalogo {
+      display: flex; /* Utiliza un contenedor flexible */
+      flex-wrap: wrap; /* Envuelve elementos en varias líneas si es necesario */
+      justify-content: center; /* Centra horizontalmente los elementos */
+      margin-top: 20px; /* Margen superior */
+    }
+
+    .catalogo-item {
+      margin: 10px; /* Margen entre elementos del catálogo */
+      flex: 0 0 calc(33.333% - 20px); /* Hace que los elementos ocupen un tercio del ancho */
+      max-width: calc(33.333% - 20px); /* Establece el ancho máximo para los elementos */
+      text-align: center; /* Alinea el texto al centro */
+      transition: transform 0.3s ease; /* Agrega una transición suave */
+    }
+
+    .catalogo-item:hover {
+      transform: scale(1.05); /* Escala el elemento al 105% en el hover */
+    }
+
+    .catalogo-item img {
+      max-width: 100%; /* Asegura que las imágenes no excedan su contenedor */
+      height: auto; /* Ajusta la altura automáticamente */
+      border-radius: 5px; /* Bordes redondeados */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de tareas -->
+  <div class="top-bar">
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('home') }}">Inicio</a></li> <!-- Elemento Inicio -->
+        <li><a href="{{ url_for('cliente') }}">Clientes</a></li> <!-- Elemento Clientes -->
+        <li><a href="#">Servicios</a></li> <!-- Elemento Servicios -->
+        <li><a href="#">Ventas</a></li> <!-- Elemento Ventas -->
+        <li><a href="#">Alertas</a></li> <!-- Elemento Alertas -->
+      </ul>
+    </nav>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png" alt="Icono de usuario" class="user-icon"> <!-- Imagen del usuario -->
+    <span class="user-name">{{ nombre }} {{ apellido }}</span> <!-- Nombre completo del usuario -->
+    <a href="{{ url_for('logout') }}" class="logout-link">Logout</a> <!-- Enlace Logout -->
+  </div>
+
+  <!-- Catálogo -->
+  <div class="catalogo">
+    <div class="catalogo-item">
+      <a href="">
+        <img src="/static/servicios/Netflix.jpg" alt="Netflix">
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="/Catalogos/HBO.html">
+        <img src="/static/servicios/HBO.jpg" alt="HBO MAX">
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="/Catalogos/Paramount.html">
+        <img src="/static/servicios/Paramount.jpg" alt="Paramount Plus">
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="https://www.amazon.com/prime">
+        <img src="/static/servicios/Prime.jpg" alt="Prime">
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="https://www.disneyplus.com">
+        <img src="/static/servicios/Disneyplus.jpg" alt="Disneyplus">
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="https://www.disneyplus.com">
+        <img src="/static/servicios/start.jpg" alt="Start Plus">
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Credenciales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h1, h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #fff;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Taskbar styles */
+        .top-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .top-bar nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-bar nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .top-bar nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Gestión de Credenciales</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                <li><a href="{{ url_for('cliente') }}">Clientes</a></li>
+                <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
+                <li><a href="{{ url_for('ventas_form') }}">Ventas</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <h2>Credenciales</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Correo</th>
+            <th>Contraseña</th>
+            <th>Producto ID</th>
+        </tr>
+        <!-- Aquí se mostrarán las credenciales -->
+        {% for credencial in credenciales %}
+        <tr>
+            <td>{{ credencial[0] }}</td>
+            <td>{{ credencial[1] }}</td>
+            <td>{{ credencial[2] }}</td>
+            <td>{{ credencial[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Agregar Credencial</h2>
+    <h2>Agregar Credencial</h2>
+    <form method="POST" action="/agregar_credencial">
+        {{ form.csrf_token }}
+        <label for="correo">Correo:</label>
+        {{ form.correo(size=32) }}
+        <label for="contrasena">Contraseña:</label>
+        {{ form.contrasena(size=32) }}
+        <label for="producto_id">Producto ID:</label>
+        {{ form.producto_id(size=32) }}
+        {{ form.submit }}
+    </form>    
+    
+    <h2>Editar Credencial</h2>
+    <form action="/editar_credencial" method="POST">
+        {{ form.csrf_token }}
+        <label for="credencial_id">ID de la Credencial a Editar:</label>
+        {{ form.credencial_id(size=32) }}
+        <label for="nuevo_correo">Nuevo Correo:</label>
+        {{ form.nuevo_correo(size=32) }}
+        <label for="nueva_contrasena">Nueva Contraseña:</label>
+        {{ form.nueva_contrasena(size=32) }}
+        <label for="nuevo_producto_id">Nuevo Producto ID:</label>
+        {{ form.nuevo_producto_id(size=32) }}
+        {{ form.submit }}
+    </form>  
+    
+</body>
+</html>

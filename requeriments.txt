@@ -1,0 +1,6 @@
+Flask
+Flask-Login
+Werkzeug
+Flask-WTF
+WTForms
+email_validator

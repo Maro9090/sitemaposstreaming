@@ -1,0 +1,162 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo</title>
+  <style>
+    /* Estilos para la barra de tareas */
+    .top-bar {
+      background-color: #007bff; /* Color de fondo */
+      color: #fff; /* Color del texto */
+      padding: 10px; /* Espaciado interno */
+      text-align: center; /* Alineación del texto */
+      display: flex;
+      justify-content: space-between; /* Espacio entre elementos */
+      align-items: center; /* Centra verticalmente los elementos */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra suave */
+    }
+
+    .logout-button {
+      background-color: transparent;
+      border: none;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .logout-button:hover {
+      background-color: #0056b3;
+    }
+
+    .top-bar nav ul {
+      list-style: none; /* Quita los puntos de la lista */
+      padding: 0; /* Quita el espacio interno */
+      margin: 0; /* Quita el espacio externo */
+      display: flex;
+    }
+
+    .top-bar nav ul li {
+      margin-right: 20px; /* Margen derecho entre elementos */
+    }
+
+    .top-bar nav ul li a {
+      color: #fff; /* Color del texto del enlace */
+      text-decoration: none; /* Quita el subrayado del enlace */
+      padding: 8px 12px; /* Espaciado interno */
+      border-radius: 5px; /* Bordes redondeados */
+      transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+    }
+
+    .top-bar nav ul li a:hover {
+      background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+    }
+
+    /* Estilos para la imagen de usuario */
+    .user-icon {
+      width: 24px; /* Ancho de la imagen */
+      height: auto; /* Altura automática para mantener la proporción */
+      margin-left: 330px; /* Margen derecho para separar la imagen del nombre */
+    }
+
+    /* Estilos para el catálogo */
+    .catalogo {
+      display: flex; /* Utiliza un contenedor flexible */
+      flex-wrap: wrap; /* Envuelve elementos en varias líneas si es necesario */
+      justify-content: center; /* Centra horizontalmente los elementos */
+      margin-top: 20px; /* Margen superior */
+    }
+
+    .catalogo-item {
+      margin: 10px; /* Margen entre elementos del catálogo */
+      flex: 0 0 calc(25% - 20px); /* Hace que los elementos ocupen un cuarto del ancho */
+      max-width: calc(25% - 20px); /* Establece el ancho máximo para los elementos */
+      text-align: center; /* Alinea el texto al centro */
+      transition: transform 0.3s ease; /* Agrega una transición suave */
+      border-radius: 10px; /* Bordes redondeados */
+      overflow: hidden; /* Oculta contenido fuera del área */
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra suave */
+    }
+
+    .catalogo-item:hover {
+      transform: scale(1.05); /* Escala el elemento al 105% en el hover */
+    }
+
+    .catalogo-item img {
+      max-width: 70%; /* Asegura que las imágenes no excedan su contenedor */
+      height: auto; /* Ajusta la altura automáticamente */
+      border-radius: 5px; /* Bordes redondeados */
+    }
+
+    .catalogo-item p {
+      margin-top: 5px; /* Margen superior */
+      font-size: 14px; /* Tamaño de fuente */
+      color: #333; /* Color del texto */
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de tareas -->
+  <div class="top-bar" 
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png" alt="Icono de usuario" class="user-icon"> <!-- Imagen del usuario -->
+    <span class="user-name">{{ nombre }} {{ apellido }}</span> <!-- Nombre completo del usuario -->
+    <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>  </div>
+
+  <!-- Catálogo -->
+  <div class="catalogo">
+    <div class="catalogo-item">
+      <a href="{{ url_for('ventas_form') }}">
+        <img src="/static/img/1.jpg" alt="ventas">
+        <p>VENTAS</p>
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="{{ url_for('cliente') }}">
+        <img src="/static/img/2.jpg" alt="Clientes">
+        <p>CLIENTES</p>
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="{{ url_for('mostrar_credenciales') }}">
+        <img src="/static/img/3.jpg" alt="Credenciales">
+        <p>CREDENCIALES</p>
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="{{ url_for('servicios') }}">
+        <img src="/static/img/4.jpg" alt="Prime">
+        <p>PRODUCTOS</p>
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="https://www.disneyplus.com">
+        <img src="/static/img/5.jpg" alt="Disneyplus">
+        <p>SERVICIOS</p>
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="https://www.disneyplus.com">
+        <img src="/static/img/6.jpg" alt="PAGAR">
+        <p>PAGAR SERVICIOS</p>
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="https://www.disneyplus.com">
+        <img src="/static/img/7.JPG" alt="Start Plus">
+        <p>REPORTES</p>
+      </a>
+    </div>
+    <div class="catalogo-item">
+      <a href="https://www.disneyplus.com">
+        <img src="/static/img/8.jpg">
+        <p>PERFILES</p>
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>
