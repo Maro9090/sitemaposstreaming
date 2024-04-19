@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo</title>
+    <style>
+        /* Estilos para la barra de tareas */
+        .top-bar {
+            background-color: #007bff; /* Color de fondo */
+            color: #fff; /* Color del texto */
+            padding: 10px; /* Espaciado interno */
+            text-align: center; /* Alineación del texto */
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Sombra suave */
+        }
+
+        .top-bar nav ul {
+            list-style: none; /* Quita los puntos de la lista */
+            padding: 0; /* Quita el espacio interno */
+            margin: 0; /* Quita el espacio externo */
+            display: flex;
+        }
+
+        .top-bar nav ul li {
+            margin-right: 20px; /* Margen derecho entre elementos */
+        }
+
+        .top-bar nav ul li a {
+            color: #fff; /* Color del texto del enlace */
+            text-decoration: none; /* Quita el subrayado del enlace */
+            padding: 8px 12px; /* Espaciado interno */
+            border-radius: 5px; /* Bordes redondeados */
+            transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+        }
+
+        .top-bar nav ul li a:hover {
+            background-color: #0056b3; /* Cambia el color de fondo al pasar el mouse */
+        }
+
+        /* Estilos para el catálogo */
+        .catalogo {
+            display: flex; /* Utiliza un contenedor flexible */
+            flex-wrap: wrap; /* Envuelve elementos en varias líneas si es necesario */
+            justify-content: center; /* Centra horizontalmente los elementos */
+            margin-top: 20px; /* Margen superior */
+        }
+
+        .catalogo-item {
+            margin: 10px; /* Margen entre elementos del catálogo */
+            flex: 0 0 calc(33.333% - 20px); /* Hace que los elementos ocupen un tercio del ancho */
+            max-width: calc(33.333% - 20px); /* Establece el ancho máximo para los elementos */
+            text-align: center; /* Alinea el texto al centro */
+            transition: transform 0.3s ease; /* Agrega una transición suave */
+        }
+
+        .catalogo-item:hover {
+            transform: scale(1.05); /* Escala el elemento al 105% en el hover */
+        }
+
+        .catalogo-item img {
+            max-width: 100%; /* Asegura que las imágenes no excedan su contenedor */
+            height: auto; /* Ajusta la altura automáticamente */
+            border-radius: 5px; /* Bordes redondeados */
+            max-height: 200px; /* Altura máxima para las imágenes */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barra de tareas -->
+<div class="top-bar" style="justify-content: flex-start;">
+    <nav>
+        <ul>
+            <ul style="margin-left: auto;">
+            <li><a href="{{ url_for('home') }}">Inicio</a></li><!-- Elemento Inicio -->
+            <li><a href="#">Clientes</a></li> <!-- Elemento Clientes -->
+            <li><a href="/Servicios/servicios.html">Servicios</a></li> <!-- Elemento Servicios -->
+            <li><a href="#">Cuentas</a></li> <!-- Elemento Cuentas -->
+            <li><a href="#">Ventas</a></li> <!-- Elemento Ventas -->
+            <li><a href="#">Alertas</a></li> <!-- Elemento Alertas -->
+        </ul>
+    </nav>
+</div>
+
+<!-- Catálogo -->
+<div class="catalogo">
+    <div class="catalogo-item">
+        <a href="{{ url_for('agregar_cliente_form') }}">
+            <img src="/static/user/Agregarusuario.jpg" alt="Agregar Clientes">
+        </a>
+    </div>
+    <div class="catalogo-item">
+        <a href="{{ url_for('buscarclienteeditar') }}">
+            <img src="/static/user/ediitarusuario.jpg" alt="editar cliente">
+        </a>
+    </div>
+    <div class="catalogo-item">
+        <a href="{{ url_for('mostrar_clientes', permitir_edicion=false) }}">
+            <img src="/static/user/Buscarusuario.jpg" alt="Buscar Clientes">
+        </a>
+    </div>
+    <div class="catalogo-item">
+        <a href="https://www.amazon.com/prime">
+            <img src="/static/user/usuariossinservicios.jpg" alt="Usuarios sin Servicios">
+        </a>
+    </div>
+    <div class="catalogo-item">
+        <a href="https://www.disneyplus.com">
+            <img src="/static/user/usr.jpg" alt="Usuario">
+        </a>
+    </div>
+    <div class="catalogo-item">
+        <a href="{{ url_for('eliminar_cliente_form') }}">
+            <img src="/static/user/Cancelarservicios.jpg" alt="Eliminar Cliente">
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

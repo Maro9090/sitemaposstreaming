@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas de Productos de Netflix</title>
+</head>
+<body>
+    <h2>Ventas de Productos de Netflix</h2>
+    <form action="/ventas_netflix" method="GET">
+        <label for="productos_netflix">Productos de Netflix Vendidos:</label>
+        <select name="productos_netflix" id="productos_netflix">
+            {% for producto in productos_netflix %}
+            <option value="{{ producto }}">{{ producto }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Mostrar Ventas">
+    </form>
+</body>
+</html>

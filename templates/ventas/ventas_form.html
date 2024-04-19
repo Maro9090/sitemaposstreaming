@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Venta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            width: calc(50% - 10px);
+            margin-bottom: 5px;
+            color: #333;
+            transition: transform 0.3s ease;
+        }
+
+        select,
+        input[type="text"],
+        input[type="date"],
+        input[type="submit"] {
+            width: calc(50% - 10px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        label:hover,
+        select:hover,
+        input[type="text"]:hover,
+        input[type="date"]:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Taskbar styles */
+        .top-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .top-bar nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-bar nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        .top-bar nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .user-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .user-name {
+            margin-right: 10px;
+        }
+
+        .logout-link {
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        .logout-link:hover {
+            background-color: #fff;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                <li><a href="{{ url_for('cliente') }}">Clientes</a></li>
+                <li><a href="{{ url_for('servicios') }}">Servicios</a></li>
+                <li><a href="#">Cuentas</a></li>
+                <li><a href="{{ url_for('ventas_form') }}">Ventas</a></li>
+                <li><a href="#">Alertas</a></li>
+            </ul>
+        </nav>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/800px-User_icon_2.svg.png" alt="Icono de usuario" class="user-icon">
+        <span class="user-name">{{ nombre }} {{ apellido }}</span>
+        <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    </div>
+
+    <h2>Registro de Venta</h2>
+    <form action="/registro_venta" method="POST" onsubmit="return validarFormulario()">        {{ form.csrf_token }} {# Agrega este campo CSRF #}
+        <label for="cliente">Cliente:</label>
+        <select name="cliente" id="cliente">
+            {% for cliente in clientes %}
+            <option value="{{ cliente[0] }}">{{ cliente[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="producto">Producto:</label>
+        <select name="producto" id="producto">
+            {% for producto in productos %}
+            <option value="{{ producto[0] }}">{{ producto[1] }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="correo">Correo:</label>
+        <select name="correo" id="correo"></select>
+
+        <label for="contrasena">Contraseña:</label>
+        <select name="contrasena" id="contrasena"></select>
+
+        <label for="perfil">Perfil:</label>
+        <input type="text" name="perfil" id="perfil">
+
+        <label for="pin_perfil">PIN del Perfil:</label>
+        <input type="text" name="pin_perfil" id="pin_perfil">
+
+        <label for="fecha_venta">Fecha de Venta:</label>
+        <input type="date" name="fecha_venta" id="fecha_venta">
+
+        <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+        <input type="date" name="fecha_vencimiento" id="fecha_vencimiento">
+
+        <input type="submit" value="Registrar Venta">
+    </form>
+
+    <script>
+        // Función para actualizar las opciones del correo y la contraseña basadas en el producto seleccionado
+        function updateCredentials() {
+            var producto_id = document.getElementById("producto").value;
+
+            // Enviar una solicitud al servidor para obtener las opciones del correo y la contraseña
+            fetch(`/fetch_credentials?producto_id=${producto_id}`)
+                .then(response => response.json())
+                .then(data => {
+                    var correoSelect = document.getElementById("correo");
+                    correoSelect.innerHTML = '';
+                    data.credentials.forEach(credential => {
+                        var option = document.createElement("option");
+                        option.text = credential[1];
+                        option.value = credential[0];
+                        correoSelect.appendChild(option);
+                    });
+
+                    var contrasenaSelect = document.getElementById("contrasena");
+                    contrasenaSelect.innerHTML = '';
+                    data.credentials.forEach(credential => {
+                        var option = document.createElement("option");
+                        option.text = credential[2];
+                        option.value = credential[0];
+                        contrasenaSelect.appendChild(option);
+                    });
+                });
+        }
+
+        // Llamar a la función cuando cambie la selección del producto
+        document.getElementById("producto").addEventListener("change", updateCredentials);
+    </script>
+    <script>
+        function validarFormulario() {
+            var cliente = document.getElementById("cliente").value;
+            var producto = document.getElementById("producto").value;
+            var correo = document.getElementById("correo").value;
+            var contrasena = document.getElementById("contrasena").value;
+            var perfil = document.getElementById("perfil").value;
+            var pin_perfil = document.getElementById("pin_perfil").value;
+            var fecha_venta = document.getElementById("fecha_venta").value;
+            var fecha_vencimiento = document.getElementById("fecha_vencimiento").value;
+    
+            if (!cliente || !producto || !correo || !contrasena || !perfil || !pin_perfil || !fecha_venta || !fecha_vencimiento) {
+                alert("Todos los campos son requeridos.");
+                return false; // Evita que se envíe el formulario si hay campos vacíos
+            }
+    
+            return true; // Permite enviar el formulario si todos los campos están llenos
+        }
+    </script>
+</body>
+</html>
